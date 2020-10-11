@@ -1,0 +1,217 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var longitude = 44.43225;
+    var latitude = 26.10626;
+
+}
+        <div class="sidebar ">
+            <ul class="list-group">
+                <li class="list-group-item">    
+                    <h5 class="text-center text-muted"><span class="fas fa-funnel"></span>FILTREAZĂ</h5>
+                    <hr />
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h6 class="text-muted">DUPĂ TIPUL DE UNITATE MEDICALĂ</h6>
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox" checked/>
+                            <img class="legendMarker" src='https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png' />
+                            Direcție de Sănătate Publică
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox" checked/>
+                            <img class="legendMarker" src='https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png' />
+                            Centru de Testare COVID
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox" checked />
+                            <img class="legendMarker" src='https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png' />
+                            Unitate medicală suport COVID
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox" checked/>
+                            <img class="legendMarker" src='https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png' />
+                            Maternitate pacienți pozitivi COVID
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox" checked/>
+                            <img class="legendMarker" src='https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png' />
+                            Unitate medicală dedicată COVID - faza 1
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox" checked/>
+                            <img class="legendMarker" src='https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png' />
+                            Unitate medicală dedicată COVID - faza 2
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox" checked />
+                            <img class="legendMarker" src='https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png' />
+                            Unitate medicală dedicată COVID
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox" checked/>
+                            <img class="legendMarker" src='https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png' />
+                            Unitate medicală NON-COVID
+                        </li>
+                    </ul>
+
+                </li>
+            </ul>
+        </div>
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+@section Scripts {
+    <style>
+        /*#page-content-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container-fluid {
+            flex-grow: 1;
+            display: flex;
+        }
+            */
+        .legendMarker {
+            margin: 4px 15px 4px 5px;
+            width: 15px;
+        }
+        .sidebar {
+            z-index: 5000;
+            position: absolute;
+            top: 87px;
+            right: 30px;
+
+        }
+        .map-container {
+            float: left;
+            display: flex;
+            flex-grow: 1;
+            position: relative;
+            display: -ms-flexbox;
+            width: 100%;
+        }
+
+        #map {
+            width: 100%;
+            height: 1100px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            outline: none;
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="~/js/hospitals.js"></script>
+    <script>
+        $(document).ready(function () {
+            var map = L.map('map', {
+                'center': [45.7, 26.10626],
+                'zoom': 7
+            });
+
+            function getMarker(categorie) {
+                var color;
+                switch (categorie) {
+                    case 'DSP':
+                        color= 'yellow';
+                        break;
+                    case "TESTARE_COVID":
+                        color = 'violet';
+                        break;
+                    case "SUPORT_COVID":
+                        color = 'blue';
+                        break;
+                    case "SUPORT_COVID_MATERNITATE_POZITIVI":
+                        color = 'gold';
+                        break;
+                    case "SPITAL_FAZA_1":
+                        color = 'orange';
+                        break;
+                    case "SPITAL_FAZA_2":
+                        color = 'red';
+                        break;
+                    case "DEDICAT_COVID":
+                        color = 'green';
+                        break;
+                    case "NON-COVID":
+                        color = 'grey';
+                        break;
+
+                }
+                var icon = new L.Icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-' + color + '.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                });
+
+                return icon;
+            }
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; ASPPIC-19'
+            }).addTo(map);
+
+            hospitals.forEach((hospital) => {
+                var lat = parseFloat(hospital.latitudine);
+                var lon = parseFloat(hospital.longitudine);
+                console.log(lon, lat);
+                L.marker([lat, lon], { icon: getMarker(hospital.categorie) }).addTo(map).on('click', function (e) {                    
+                    $("#hospitalModalTitle").empty().text(hospital.unitateMedicala);
+                    $("#hospitalImage").attr('src', hospital.imagine);
+                    $("#hospitalAddress").text(hospital.adresa);
+                    $("#hospitalEmail").text(hospital.email);
+                    $("#hospitalPhone").text(hospital.telefon);
+                    $("#hospitalWebsite").attr('href', hospital.website);
+                    $("#hospitalWebsite").text(hospital.website);
+                    $("#stateHospital").text(hospital.spitalDeStat)
+                    $("#hospitalRoute").attr('href', "http://maps.google.com/maps?daddr=" + hospital.latitudine + "%2C" + hospital.longitudine);
+                    $("#hospitalModal").modal('show'); 
+                });
+            })
+
+            $('#hospitalModal').on('hide.bs.modal', function () {
+                $("#hospitalImage").attr('src', "");
+            })
+        })
+    </script>
+}
+
+<div class="modal" id="hospitalModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="hospitalModalTitle" class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <img id="hospitalImage" src="" class="img-fluid img-thumbnail" />
+                    </div>
+                    <div class="col-md-7">
+                        <h5>Informații de contact</h5>
+                        <p><b>Adresa: </b><span id="hospitalAddress"></span></p>
+                        <p><b>E-mail: </b><span id="hospitalEmail"></span></p>
+                        <p><b>Telefon: </b><span id="hospitalPhone"></span></p>
+                        <p><b>Website: </b><a id="hospitalWebsite">#</a></p>
+                        <p><b>Spital de stat:</b> <span id="stateHospital"></span></p>
+                        <p><b>Indicații de orientare: </b><a id="hospitalRoute" target="_blank">Google Maps</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Închide</button>
+            </div>
+        </div>
+    </div>
+</div>

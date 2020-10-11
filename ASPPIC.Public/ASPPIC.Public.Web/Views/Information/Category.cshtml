@@ -1,0 +1,16 @@
+﻿@model ASPPIC.Public.Domain.Dtos.TutorialGroupDto
+
+    <div class="container pt-5 pb-3">
+        <h1 class="text-center pb-4">@Model.Name</h1>
+        @Html.Raw(Model.Description)
+
+    <ul class="list-group">
+        @foreach (var item in Model.Tutorials)
+        {
+            <li class="list-group-item">
+                <h4><a href="@Url.Action("Details", "Information", new { id = item.Id })">@item.Name</a></h4>
+            </li>
+            }
+    </ul>
+        
+    </div>

@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "YAYSTMOFNYBfzh3fm0VVj3wF5KGQmi4+0Zje/GZ3j79FUsSxG37pAXB0F/r5HJN0YkiS2L/AHCJxH+BQPgSggg==",
+  "success": true,
+  "projectFilePath": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Business\\ASPPIC.Public.Business.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\aluci\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.8\\microsoft.extensions.dependencyinjection.abstractions.3.1.8.nupkg.sha512",
+    "C:\\Users\\aluci\\.nuget\\packages\\microsoft.extensions.options\\3.1.8\\microsoft.extensions.options.3.1.8.nupkg.sha512",
+    "C:\\Users\\aluci\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.8\\microsoft.extensions.primitives.3.1.8.nupkg.sha512",
+    "C:\\Users\\aluci\\.nuget\\packages\\newtonsoft.json\\11.0.1\\newtonsoft.json.11.0.1.nupkg.sha512",
+    "C:\\Users\\aluci\\.nuget\\packages\\restease\\1.5.0\\restease.1.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

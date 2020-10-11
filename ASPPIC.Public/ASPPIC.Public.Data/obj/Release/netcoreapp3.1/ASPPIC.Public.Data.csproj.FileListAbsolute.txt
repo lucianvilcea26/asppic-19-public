@@ -1,0 +1,12 @@
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Data\bin\Release\netcoreapp3.1\ASPPIC.Public.Data.deps.json
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Data\bin\Release\netcoreapp3.1\ASPPIC.Public.Data.dll
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Data\bin\Release\netcoreapp3.1\ASPPIC.Public.Data.pdb
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Data\bin\Release\netcoreapp3.1\ASPPIC.Public.Domain.dll
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Data\bin\Release\netcoreapp3.1\ASPPIC.Public.Domain.pdb
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Data\obj\Release\netcoreapp3.1\ASPPIC.Public.Data.csprojAssemblyReference.cache
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Data\obj\Release\netcoreapp3.1\ASPPIC.Public.Data.AssemblyInfoInputs.cache
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Data\obj\Release\netcoreapp3.1\ASPPIC.Public.Data.AssemblyInfo.cs
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Data\obj\Release\netcoreapp3.1\ASPPIC.Public.Data.csproj.CoreCompileInputs.cache
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Data\obj\Release\netcoreapp3.1\ASPPIC.Public.Data.csproj.CopyComplete
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Data\obj\Release\netcoreapp3.1\ASPPIC.Public.Data.dll
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Data\obj\Release\netcoreapp3.1\ASPPIC.Public.Data.pdb

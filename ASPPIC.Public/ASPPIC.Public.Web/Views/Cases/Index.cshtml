@@ -1,0 +1,531 @@
+﻿<style>
+    th, td {
+        text-align: center;
+    }
+
+    .axis {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    text {
+        fill: #727075;
+        stroke: none;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: none;
+        stroke-width: 2px;
+        shape-rendering: crispEdges;
+    }
+
+    .grid path {
+        stroke: none;
+    }
+
+    .grid line {
+        stroke: #E0E0E0;
+        shape-rendering: crispEdges;
+    }
+
+    .data-line {
+        fill: none;
+        stroke: #3C92BA;
+        stroke-width: 4px;
+    }
+
+    .data-circle {
+        fill: #3C92BA;
+    }
+
+    .axis-title {
+        text-anchor: end;
+        fill: #5D6971;
+        font-weight: normal;
+    }
+
+    .axis-tspan {
+        font-size: 12px;
+    }
+
+    .clinical-cut-off-line {
+        fill: none;
+        stroke: #89868E;
+        stroke-dasharray: 8,8;
+        stroke-width: 4px;
+    }
+
+    .clinical-cut-off-text {
+        text-transform: uppercase;
+        text-anchor: start;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .grid line {
+        stroke: lightgrey;
+        stroke-opacity: 0.7;
+        shape-rendering: crispEdges;
+    }
+
+    .grid path {
+        stroke-width: 0;
+    }
+
+    .tab-pane {
+        padding: 15px 0px;
+        border-color: #dee2e6;
+        border-left: 1px solid #dee2e6;
+        border-right: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
+    }
+</style>
+<h1 class="text-center">Evoluția cazurilor de COVID-19 în România</h1>
+<br />
+<hr />
+<br />
+<div class="col-md-12" id="main-stats-container" style="display: none;">
+    <div class="row">
+        <div class="col-md-12">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-cases-tab" data-toggle="tab" href="#nav-cases" role="tab" aria-controls="nav-cases" aria-selected="true">Cazuri</a>
+                    <a class="nav-item nav-link" id="nav-deaths-tab" data-toggle="tab" href="#nav-deaths" role="tab" aria-controls="nav-deaths" aria-selected="false">Decese</a>
+                    <a class="nav-item nav-link" id="nav-heals-tab" data-toggle="tab" href="#nav-heals" role="tab" aria-controls="nav-heals" aria-selected="false">Vindecări</a>
+                    <a class="nav-item nav-link" id="nav-growth-tab" data-toggle="tab" href="#nav-growth" role="tab" aria-controls="nav-growth" aria-selected="false">Rata de creștere</a>
+                    <a class="nav-item nav-link" id="nav-test-tab" data-toggle="tab" href="#nav-test" role="tab" aria-controls="nav-test" aria-selected="false">Testare</a>
+                    <a class="nav-item nav-link" id="nav-county-tab" data-toggle="tab" href="#nav-county" role="tab" aria-controls="nav-county" aria-selected="false">Situația pe județe</a>
+                    <a class="nav-item nav-link" id="nav-report-tab" data-toggle="tab" href="#nav-report" role="tab" aria-controls="nav-report" aria-selected="false">Raport evoluție</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane show active" id="nav-cases" role="tabpanel" aria-labelledby="nav-cases-tab">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Evolutia cazurilor pe zile</h3>
+                            <div id="dailyCases"></div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Evolutia cazurilor totale</h3>
+                            <div id="totalCases"></div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Evolutia cazurilor active</h3>
+                            <div id="activeCases"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane " id="nav-deaths" role="tabpanel" aria-labelledby="nav-deaths-tab">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Evolutia deceselor pe zile</h3>
+                            <div id="dailyDeaths"></div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Evolutia deceselor totale</h3>
+                            <div id="totalDeaths"></div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Evolutia deceselor din secțiile ATI</h3>
+                            <div id="deathsATI"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane " id="nav-heals" role="tabpanel" aria-labelledby="nav-heals-tab">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Evolutia vindecărilor pe zile</h3>
+                            <div id="dailyHeals"></div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Evolutia vindecărilor totale</h3>
+                            <div id="totalHeals"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane " id="nav-growth" role="tabpanel" aria-labelledby="nav-growth-tab">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Rata de creștere</h3>
+                            <div id="growthRate"></div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Rata de creștere (cazuri noi/active)</h3>
+                            <div id="newOnActive"></div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Rata de creștere (cazuri noi/total)</h3>
+                            <div id="newOnTotal"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane " id="nav-test" role="tabpanel" aria-labelledby="nav-test-tab">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Teste efectuate pe zile</h3>
+                            <div id="dailyTests"></div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Teste efectuate total</h3>
+                            <div id="totalTests"></div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Procentaj teste pozitive</h3>
+                            <div id="positivePercentage"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="nav-county" role="tabpanel" aria-labelledby="nav-county-tab">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Cazuri noi pe județ</h3>
+                            <div id="newCasesByCounty"></div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Cazuri active pe județ</h3>
+                            <div id="activeCasesByCounty"></div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Cazuri totale pe județ</h3>
+                            <div id="totalCasesByCounty"></div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Vindecări totale pe județ</h3>
+                            <div id="totalHealedByCounty"></div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4 pt-3">
+                            <h3 class="text-center">Decese totale pe județ</h3>
+                            <div id="totalDeathsByCounty"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane " id="nav-report" role="tabpanel" aria-labelledby="nav-report-tab">
+                    <div class="col-md-12">
+                        <table id="tableTotalCases" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Data</th>
+                                    <th colspan="4">Cazuri</th>
+                                    <th colspan="2">Vindecări</th>
+                                    <th colspan="2">Decese</th>
+                                    <th colspan="3">Teste</th>
+                                    <th colspan="3">Rata de creștere cazuri</th>
+                                </tr>
+                                <tr>
+                                    <th width="6%">Noi</th>
+                                    <th width="6%">Total</th>
+                                    <th width="6%">Din care active</th>
+                                    <th width="6%">Din care ATI</th>
+                                    <th width="6%">Noi</th>
+                                    <th width="6%">Total</th>
+                                    <th width="6%">Noi</th>
+                                    <th width="6%">Total</th>
+                                    <th width="6%">Noi</th>
+                                    <th width="6%">Din care pozitive</th>
+                                    <th width="6%">Total</th>
+                                    <th width="6%">Generală</th>
+                                    <th width="6%">Noi/total</th>
+                                    <th width="6%">Noi/active</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableTotalCases-tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles {
+    <link href="~/lib/datatables/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/lib/datatables/datatables-responsive/css/responsive.bootstrap4.css" rel="stylesheet" />
+
+}
+
+@section Scripts {
+    <script src="~/lib/datatables/datatables/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/lib/datatables/datatables-responsive/js/dataTables.responsive.js"></script>
+    <script src="~/lib/datatables/datatables-responsive/js/responsive.bootstrap4.js"></script>
+    <script src="https://d3js.org/d3.v4.js" crossorigin=""></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/barChart.js"></script>
+    <script src="~/js/horizontalBarChart.js"></script>
+    <script src="~/js/stackedChart.js"></script>
+    <script src="~/js/lineChart.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            var blue = "#007bff";
+            var orange = "#fd7e14";
+            var red = "#dc3545";
+            var green = "#28a745";
+            var teal = "#17a2b8";
+            var table = null;
+            var size = 45;
+
+            var dailyCasesResult;
+            var casesByCountyResult;
+
+            dailyCasesFetched = false;
+            casesByCountyFetched = false;
+
+            function renderCasesCharts(data) {
+                barChart(data, {
+                    xField: "Data",
+                    yField: "Cazuri",
+                    container: "#dailyCases",
+                    color: blue
+                });
+                barChart(data, {
+                    xField: "Data",
+                    yField: "Total",
+                    container: "#totalCases",
+                    color: red
+                });
+                barChart(data, {
+                    xField: "Data",
+                    yField: "Cazuri active",
+                    container: "#activeCases",
+                    color: orange
+                });
+            }
+            function renderDeathsCharts(data) {
+                barChart(data, {
+                    xField: "Data",
+                    yField: "Morti pe zi",
+                    container: "#dailyDeaths",
+                    color: blue
+                });
+
+                barChart(data, {
+                    xField: "Data",
+                    yField: "Morti",
+                    container: "#totalDeaths",
+                    color: red
+                });
+
+                stackedChart(data, {
+                    xField: "Data",
+                    yField: ["Morti pe zi", "Terapie intensiva"],
+                    container: "#deathsATI"
+                });
+
+            }
+
+            function renderHealsCharts(data) {
+                barChart(data, {
+                    xField: "Data",
+                    yField: "Vindecati pe zi",
+                    container: "#dailyHeals",
+                    color: blue
+                });
+
+                barChart(data, {
+                    xField: "Data",
+                    yField: "Vindecati",
+                    container: "#totalHeals",
+                    color: red
+                });
+            }
+
+            function renderGrowthCharts(data) {                
+                
+                lineChart(data, {
+                    xField: "Data",
+                    yField: "Rata de crestere",
+                    container: "#growthRate",
+                    color: blue,
+                    strokeWidth: 3,
+                    pointRadius: 4
+                });
+                lineChart(data, {
+                    xField: "Data",
+                    yField: "Rata de crestere (caz activ)",
+                    container: "#newOnActive",
+                    color: red,
+                    strokeWidth: 3,
+                    pointRadius: 4
+                });  
+                lineChart(data, {
+                    xField: "Data",
+                    yField: "Cazuri noi/total",
+                    container: "#newOnTotal",
+                    color: orange,
+                    strokeWidth: 3,
+                    pointRadius: 4
+                });
+            }
+
+            function renderTestCharts(data) {
+                lineChart(data, {
+                    xField: "Data",
+                    yField: "Nr de teste pe zi",
+                    container: "#dailyTests",
+                    color: blue,
+                    strokeWidth: 3,
+                    pointRadius: 4
+                });    
+                
+                lineChart(data, {
+                    xField: "Data",
+                    yField: "Nr de teste",
+                    container: "#totalTests",
+                    color: red,
+                    strokeWidth: 3,
+                    pointRadius: 4
+                });
+                lineChart(data, {
+                    xField: "Data",
+                    yField: "Procentaj de teste pozitive",
+                    container: "#positivePercentage",
+                    color: orange,
+                    strokeWidth: 3,
+                    pointRadius: 4
+                });
+                            
+            }
+
+            function renderCountyCharts(data) {
+                console.log(data)
+                horizontalBarChart(data, {
+                    yField: "county",
+                    xField: "new_case",
+                    container: "#newCasesByCounty",
+                    color: blue
+                });
+                horizontalBarChart(data, {
+                    yField: "county",
+                    xField: "total_active",
+                    container: "#activeCasesByCounty",
+                    color: red
+                });
+                horizontalBarChart(data, {
+                    yField: "county",
+                    xField: "total_case",
+                    container: "#totalCasesByCounty",
+                    color: orange
+                });
+                horizontalBarChart(data, {
+                    yField: "county",
+                    xField: "total_healed",
+                    container: "#totalHealedByCounty",
+                    color: green
+                });
+                horizontalBarChart(data, {
+                    yField: "county",
+                    xField: "total_dead",
+                    container: "#totalDeathsByCounty",
+                    color: teal
+                });
+                
+            }
+
+            $('.nav-tabs a').on('shown.bs.tab', function (event) {
+                var id = event.target.id;    
+
+                var items = dailyCasesResult.slice(0, size);
+                switch (id) {
+                    case 'nav-cases-tab':
+                        renderCasesCharts(items);
+                        break;
+                    case 'nav-deaths-tab':
+                        renderDeathsCharts(items);
+                        break;
+                    case 'nav-heals-tab':
+                        renderHealsCharts(items);
+                        break;
+                    case 'nav-growth-tab':
+                        renderGrowthCharts(items);
+                        break;
+                    case 'nav-test-tab':
+                        renderTestCharts(items);
+                        break;
+                    case 'nav-county-tab':
+                        renderCountyCharts(casesByCountyResult);
+                        break;
+                    case 'nav-report-tab':
+                        createTable(dailyCasesResult);
+                        break;
+                }
+            });
+
+            function tryRender() {
+                if (dailyCasesFetched == true && casesByCountyFetched == true) {
+                 
+                    var items = dailyCasesResult.slice(0, size);
+
+                    $("#main-stats-container").show();
+                    renderCasesCharts(items);
+                }
+            }
+
+            function createTable(data) {
+                $("#tableTotalCases-tbody").empty();
+                data.forEach(function (d) {
+                    var tr = $("<tr />");
+                    $(tr).append("<td>" + d["Data"] + "</td>");
+                    $(tr).append("<td>" + (d["Cazuri"] != null ? d["Cazuri"] : "-") + "</td>");
+                    $(tr).append("<td>" + (d["Total"] != null ? d["Total"] : "-") + "</td>");
+                    $(tr).append("<td>" + (d["Cazuri active"] != null ? d["Cazuri active"] : "-") + "</td>");
+                    $(tr).append("<td>" + (d["Terapie intensiva"] != null ? d["Terapie intensiva"] : "-") + "</td>");
+                    $(tr).append("<td>" + (d["Vindecati pe zi"] != null ? d["Vindecati pe zi"] : "-") + "</td>");
+                    $(tr).append("<td>" + (d["Vindecati"] != null ? d["Vindecati"] : "-") + "</td>");
+                    $(tr).append("<td>" + (d["Morti pe zi"] != null ? d["Morti pe zi"] : "-") + "</td>");
+                    $(tr).append("<td>" + (d["Morti"] != null ? d["Morti"] : "-") + "</td>");
+                    $(tr).append("<td>" + (d["Nr de teste pe zi"] != null ? d["Nr de teste pe zi"] : "-") + "</td>");
+                    $(tr).append("<td>" + (d["Procentaj de teste pozitive"] != null ? d["Procentaj de teste pozitive"] + " %" : "-") + "</td>");
+                    $(tr).append("<td>" + (d["Nr de teste"] != null ? d["Nr de teste"] : "-") + "</td>");
+                    $(tr).append("<td>" + (d["Rata de crestere"] != null ? d["Rata de crestere"] : "-") + "</td>");
+                    $(tr).append("<td>" + (d["Cazuri noi/total"] != null ? d["Cazuri noi/total"] : "-") + "</td>");
+                    $(tr).append("<td>" + (d["Rata de crestere (caz activ)"] != null ? d["Rata de crestere (caz activ)"] : "-") + "</td>");
+
+                    $("#tableTotalCases-tbody").append(tr);
+                });
+                if (table != null)
+                    table.destroy();
+                table = $('#tableTotalCases').DataTable({
+                    "pageLength": 15,
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                    "order": [[0, "desc"]]
+                });
+            }
+
+            $.ajax({
+                method: "GET",
+                url: "https://covid19.geo-spatial.org/api/dashboard/v2/getCasesByCounty",
+                success: function (response) {
+                    casesByCountyResult = response.data.data.sort(descendingComparer);
+                    casesByCountyFetched = true;
+                    tryRender();
+
+                }
+            })
+
+            $.ajax({
+                method: "GET",
+                url: "https://covid19.geo-spatial.org/api/dashboard/getDailyCases",
+                success: function (response) {
+                    dailyCasesResult = response.data.data.sort(descendingComparer);
+                    dailyCasesFetched = true;
+                    tryRender();
+                }
+            })
+        })
+
+
+    </script>
+}

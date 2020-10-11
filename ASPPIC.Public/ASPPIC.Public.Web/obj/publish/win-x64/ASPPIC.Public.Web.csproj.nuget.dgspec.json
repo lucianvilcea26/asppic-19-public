@@ -1,0 +1,300 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Web\\ASPPIC.Public.Web.csproj": {}
+  },
+  "projects": {
+    "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Business\\ASPPIC.Public.Business.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Business\\ASPPIC.Public.Business.csproj",
+        "projectName": "ASPPIC.Public.Business",
+        "projectPath": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Business\\ASPPIC.Public.Business.csproj",
+        "packagesPath": "C:\\Users\\aluci\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Business\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\aluci\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Data\\ASPPIC.Public.Data.csproj": {
+                "projectPath": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Data\\ASPPIC.Public.Data.csproj"
+              },
+              "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Domain\\ASPPIC.Public.Domain.csproj": {
+                "projectPath": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Domain\\ASPPIC.Public.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
+      }
+    },
+    "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Data\\ASPPIC.Public.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Data\\ASPPIC.Public.Data.csproj",
+        "projectName": "ASPPIC.Public.Data",
+        "projectPath": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Data\\ASPPIC.Public.Data.csproj",
+        "packagesPath": "C:\\Users\\aluci\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\aluci\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Domain\\ASPPIC.Public.Domain.csproj": {
+                "projectPath": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Domain\\ASPPIC.Public.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "RestEase": {
+              "target": "Package",
+              "version": "[1.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
+      }
+    },
+    "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Domain\\ASPPIC.Public.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Domain\\ASPPIC.Public.Domain.csproj",
+        "projectName": "ASPPIC.Public.Domain",
+        "projectPath": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Domain\\ASPPIC.Public.Domain.csproj",
+        "packagesPath": "C:\\Users\\aluci\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\aluci\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
+      }
+    },
+    "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Web\\ASPPIC.Public.Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Web\\ASPPIC.Public.Web.csproj",
+        "projectName": "ASPPIC.Public.Web",
+        "projectPath": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Web\\ASPPIC.Public.Web.csproj",
+        "packagesPath": "C:\\Users\\aluci\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Web\\obj\\publish\\win-x64\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\aluci\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Business\\ASPPIC.Public.Business.csproj": {
+                "projectPath": "D:\\Projects\\ASPPIC-19\\asppic-19-public\\ASPPIC.Public\\ASPPIC.Public.Business\\ASPPIC.Public.Business.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "AspNet.Security.OpenIdConnect.Primitives": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.OpenIdConnect": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.10.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

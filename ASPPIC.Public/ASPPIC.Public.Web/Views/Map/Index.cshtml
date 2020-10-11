@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var longitude = 44.43225;
+    var latitude = 26.10626;
+
+}
+<div class="map-container">
+    <div id="map"></div>
+</div>
+@section Scripts {
+    <style>
+        /*#page-content-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container-fluid {
+            flex-grow: 1;
+            display: flex;
+        }
+            */
+        .map-container {
+            display: flex;
+            flex-grow: 1;
+            position: relative;
+            display: -ms-flexbox;
+            width: 100%;
+        }
+
+        #map {
+            width: 100%;
+            height: 800px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            outline: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="~/js/hospitals.js"></script>
+    <script>
+        $(document).ready(function () {
+            var map = L.map('map', {
+                'center': [45.7, 26.10626],
+                'zoom': 7
+            });
+
+            
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {                
+                maxZoom: 19,
+                attribution: '&copy; ASPPIC-19'
+            }).addTo(map);
+            //hospitals.forEach((hospital) => {
+            //    var lat = parseFloat(hospital.Latitudine);
+            //    var lon = parseFloat(hospital.Longitudine);
+            //    console.log(lon, lat);
+            //    L.marker([lat, lon]).addTo(map);
+            //})
+
+        })
+    </script>
+}
