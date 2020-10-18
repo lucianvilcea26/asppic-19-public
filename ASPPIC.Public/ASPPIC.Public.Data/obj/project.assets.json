@@ -33,39 +33,6 @@
           "bin/placeholder/ASPPIC.Public.Domain.dll": {}
         }
       }
-    },
-    ".NETCoreApp,Version=v3.1/win-x64": {
-      "Newtonsoft.Json/11.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
-        }
-      },
-      "RestEase/1.5.0": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "11.0.1"
-        },
-        "compile": {
-          "lib/netstandard2.1/RestEase.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.1/RestEase.dll": {}
-        }
-      },
-      "ASPPIC.Public.Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "compile": {
-          "bin/placeholder/ASPPIC.Public.Domain.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ASPPIC.Public.Domain.dll": {}
-        }
-      }
     }
   },
   "libraries": {
@@ -198,11 +165,6 @@
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
-      }
-    },
-    "runtimes": {
-      "win-x64": {
-        "#import": []
       }
     }
   }

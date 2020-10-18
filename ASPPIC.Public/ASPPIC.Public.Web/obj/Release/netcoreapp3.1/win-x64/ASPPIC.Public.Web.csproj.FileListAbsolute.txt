@@ -372,3 +372,5 @@ D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Web\obj\Relea
 D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Web\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Information\Category.cshtml.g.cs
 D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Web\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Information\Details.cshtml.g.cs
 D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Web\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Map\Index.cshtml.g.cs
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Web\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Hospitals\_HospitalFilters.cshtml.g.cs
+D:\Projects\ASPPIC-19\asppic-19-public\ASPPIC.Public\ASPPIC.Public.Web\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Hospitals\_HospitalModal.cshtml.g.cs
