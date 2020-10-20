@@ -1,0 +1,25 @@
+{
+  "name": "spitale",
+  "version": "0.1.0",
+  "description": "An opinionated provider template for koop-cli",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha 'test/**/*.test.js'",
+    "start": "koop serve"
+  },
+  "dependencies": {
+    "config": "^3.3.1",
+    "pg": "^8.4.1"
+  },
+  "devDependencies": {
+    "@koopjs/cli": "^0.6.3",
+    "chai": "^4.2.0",
+    "mocha": "^8.1.2"
+  },
+  "repository": "",
+  "keywords": [
+    "koop",
+    "plugin",
+    "provider"
+  ]
+}
