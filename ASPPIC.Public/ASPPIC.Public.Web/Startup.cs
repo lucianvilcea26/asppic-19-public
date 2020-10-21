@@ -36,6 +36,16 @@ namespace ASPPIC.Public.Web
                 options.AutomaticAuthentication = false;
             });
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyHeader() ;
+                    });
+            });
+
+
             services.Configure<APIConfiguration>(Configuration.GetSection("APIS"));
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
@@ -96,6 +106,9 @@ namespace ASPPIC.Public.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors();
+
             app.UseAuthentication();
             app.UseAuthorization();
 

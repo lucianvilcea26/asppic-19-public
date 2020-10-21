@@ -8,6 +8,6 @@ namespace ASPPIC.Public.Business.Interfaces
 {
     public interface ICountyService
     {
-        Task<DashboardDto> GetDashboardInfo();
+        Task<List<CasesByCountyAndPeriod>> GetDashboardInfo();
     }
 }

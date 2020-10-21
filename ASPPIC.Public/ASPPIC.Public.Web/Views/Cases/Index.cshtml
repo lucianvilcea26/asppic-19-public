@@ -1,4 +1,6 @@
-﻿<style>
+﻿@model IEnumerable<ASPPIC.Public.Domain.Dtos.CasesByCountyAndPeriod>
+
+<style>
     th, td {
         text-align: center;
     }
@@ -85,6 +87,11 @@
         border-right: 1px solid #dee2e6;
         border-bottom: 1px solid #dee2e6;
     }
+
+    .bg-gray-light {
+        background-color: #f2f4f5;
+        color: #1F2D3D !important;
+    }
 </style>
 <h1 class="text-center">Evoluția cazurilor de COVID-19 în România</h1>
 <br />
@@ -98,10 +105,12 @@
                     <a class="nav-item nav-link active" id="nav-cases-tab" data-toggle="tab" href="#nav-cases" role="tab" aria-controls="nav-cases" aria-selected="true">Cazuri</a>
                     <a class="nav-item nav-link" id="nav-deaths-tab" data-toggle="tab" href="#nav-deaths" role="tab" aria-controls="nav-deaths" aria-selected="false">Decese</a>
                     <a class="nav-item nav-link" id="nav-heals-tab" data-toggle="tab" href="#nav-heals" role="tab" aria-controls="nav-heals" aria-selected="false">Vindecări</a>
-                    <a class="nav-item nav-link" id="nav-growth-tab" data-toggle="tab" href="#nav-growth" role="tab" aria-controls="nav-growth" aria-selected="false">Rata de creștere</a>
+                    <a class="nav-item nav-link" id="nav-growth-tab" data-toggle="tab" href="#nav-growth" role="tab" aria-controls="nav-growth" aria-selected="false">Indicatori derivați/indicatori relativi</a>
                     <a class="nav-item nav-link" id="nav-test-tab" data-toggle="tab" href="#nav-test" role="tab" aria-controls="nav-test" aria-selected="false">Testare</a>
                     <a class="nav-item nav-link" id="nav-county-tab" data-toggle="tab" href="#nav-county" role="tab" aria-controls="nav-county" aria-selected="false">Situația pe județe</a>
+                    <a class="nav-item nav-link" id="nav-ages-tab" data-toggle="tab" href="#nav-ages" role="tab" aria-controls="nav-ages" aria-selected="false">Distribuția pe vârste și sexe</a>
                     <a class="nav-item nav-link" id="nav-report-tab" data-toggle="tab" href="#nav-report" role="tab" aria-controls="nav-report" aria-selected="false">Raport evoluție</a>
+                    <a class="nav-item nav-link" id="nav-metodologie-tab" data-toggle="tab" href="#nav-metodologie" role="tab" aria-controls="nav-metodologie" aria-selected="false">Metodologie</a>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -239,6 +248,566 @@
                         </table>
                     </div>
                 </div>
+                <div id="nav-ages" class="tab-pane">
+                    <div class="col-md-12">
+                        <h5 class="text-center mb-5 mt-3">Împărțirea cazurilor confirmate în data de <b>@Model.First().Cases.First().Date.ToString("dd.MM.yyyy")</b> pe categorii de vârstă și sexe</h5>
+                        <table id="evolution" class="table table-bordered table-sm table-valign-middle  text-center">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Județ</th>
+                                    <th colspan="3">0-10 ani</th>
+                                    <th colspan="3">11-20 ani</th>
+                                    <th colspan="3">21-30 ani</th>
+                                    <th colspan="3">31-40 ani</th>
+                                    <th colspan="3">41-50 ani</th>
+                                    <th colspan="3">51-60 ani</th>
+                                    <th colspan="3">61-70 ani</th>
+                                    <th colspan="3">71-80 ani</th>
+                                    <th colspan="3">>80 ani</th>
+                                    <th colspan="3">Total</th>
+                                </tr>
+                                <tr>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>T</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>T</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>T</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>T</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>T</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>T</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>T</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>T</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>T</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>T</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var c in Model.OrderBy(x => x.County.Abbreviation))
+                                {
+                                    <tr>
+                                        <td>@c.County.Name</td>
+                                        <td class="bg-gray-light">@c.Cases.First().MalesByAge.Age0To10</td>
+                                        <td class="bg-gray-light">@c.Cases.First().FemalesByAge.Age0To10</td>
+                                        <td class="bg-gray-light">@c.Cases.First().TotalByAge.Age0To10</td>
+
+                                        <td>@c.Cases.First().MalesByAge.Age11To20</td>
+                                        <td>@c.Cases.First().FemalesByAge.Age11To20</td>
+                                        <td>@c.Cases.First().TotalByAge.Age11To20</td>
+
+                                        <td class="bg-gray-light">@c.Cases.First().MalesByAge.Age21To30</td>
+                                        <td class="bg-gray-light">@c.Cases.First().FemalesByAge.Age21To30</td>
+                                        <td class="bg-gray-light">@c.Cases.First().TotalByAge.Age21To30</td>
+
+                                        <td>@c.Cases.First().MalesByAge.Age31To40</td>
+                                        <td>@c.Cases.First().FemalesByAge.Age31To40</td>
+                                        <td>@c.Cases.First().TotalByAge.Age31To40</td>
+
+                                        <td class="bg-gray-light">@c.Cases.First().MalesByAge.Age41To50</td>
+                                        <td class="bg-gray-light">@c.Cases.First().FemalesByAge.Age41To50</td>
+                                        <td class="bg-gray-light">@c.Cases.First().TotalByAge.Age41To50</td>
+
+                                        <td>@c.Cases.First().MalesByAge.Age51To60</td>
+                                        <td>@c.Cases.First().FemalesByAge.Age51To60</td>
+                                        <td>@c.Cases.First().TotalByAge.Age51To60</td>
+
+                                        <td class="bg-gray-light">@c.Cases.First().MalesByAge.Age61To70</td>
+                                        <td class="bg-gray-light">@c.Cases.First().FemalesByAge.Age61To70</td>
+                                        <td class="bg-gray-light">@c.Cases.First().TotalByAge.Age61To70</td>
+
+                                        <td>@c.Cases.First().MalesByAge.Age71To80</td>
+                                        <td>@c.Cases.First().FemalesByAge.Age71To80</td>
+                                        <td>@c.Cases.First().TotalByAge.Age71To80</td>
+
+                                        <td class="bg-gray-light">@c.Cases.First().MalesByAge.Over80</td>
+                                        <td class="bg-gray-light">@c.Cases.First().FemalesByAge.Over80</td>
+                                        <td class="bg-gray-light">@c.Cases.First().TotalByAge.Over80</td>
+
+                                        <td><b>@c.Cases.First().MalesByAge.Total</b></td>
+                                        <td><b>@c.Cases.First().FemalesByAge.Total</b></td>
+                                        <td><b>@c.TotalCases</b></td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                        <p><i>* M - masculin; F - feminin; T - total</i></p>
+                    </div>
+                </div>
+                <div class="tab-pane" id="nav-metodologie" role="tabpanel" aria-labelledby="nav-metodologie-tab">
+
+                    <div class="col-lg-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Tip</th>
+                                    <th>Nr. crt.</th>
+                                    <th>Denumire</th>
+                                    <th>Simbol</th>
+                                    <th>Definiție / Mod de calcul</th>
+                                    <th>Tip</th>
+                                    <th>Scala</th>
+                                    <th>Sursa</th>
+                                    <th>Forma sau perioada de raportare <sup>(1)</sup></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="9">Indicatori sursă (primari)</td>
+                                    <td>1.1</td>
+                                    <td>Caz nou</td>
+                                    <td>CN</td>
+                                    <td>
+                                        Pacient care în urma unui test RT-PCR
+                                        sau de test de anticorpi IgM / IgG are
+                                        pentru prima data un rezultat pozitiv
+                                    </td>
+                                    <td>De flux</td>
+                                    <td>Discretă</td>
+                                    <td>INSP</td>
+                                    <td>
+                                        Zilnică
+                                        (ultimele
+                                        24h)+ Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>1.2</td>
+                                    <td>
+                                        Număr de cazuri
+                                        (total) confirmate
+                                    </td>
+                                    <td>TCC</td>
+                                    <td>
+                                        Suma tuturor cazurilor confirmate
+                                        pozitiv de la începutul pandemiei,
+                                        indiferent de starea lor curenta (activ,
+                                        vindecat sau decedat)
+                                    </td>
+                                    <td>De stoc</td>
+                                    <td>Discretă</td>
+                                    <td>INSP</td>
+                                    <td>
+                                        La
+                                        momentul
+                                        t/ziua de...
+                                        Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>1.3</td>
+                                    <td>
+                                        Numărul de cazuri
+                                        active
+                                    </td>
+                                    <td>CA</td>
+                                    <td>
+                                        Numărul de bolnavi existenți în viață la
+                                        un moment dat, fără a avea în acel
+                                        moment ultimul test negativ
+                                    </td>
+                                    <td>De stoc</td>
+                                    <td>Discretă</td>
+                                    <td>INSP</td>
+                                    <td>
+                                        La
+                                        momentul
+                                        t/ziua de...
+                                        Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>1.4</td>
+                                    <td>
+                                        Număr cazuri ATI
+                                    </td>
+                                    <td>ATI</td>
+                                    <td>
+                                        Număr bolnavi aflați în secțiile de
+                                        anestezie terapie intensivă (ATI) la un
+                                        moment dat, cu ultimul test RT-PCR sau
+                                        IgM / IgG pentru COVID-19, pozitiv.
+                                    </td>
+                                    <td>De stoc</td>
+                                    <td>Discretă</td>
+                                    <td>INSP</td>
+                                    <td>
+                                        La
+                                        momentul
+                                        t/ziua de...
+                                        Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>1.5</td>
+                                    <td>
+                                        Număr decese
+                                    </td>
+                                    <td>Dec</td>
+                                    <td>
+                                        Număr de decese având cauza principală
+                                        de deces infecție cu SARS-COV2
+                                    </td>
+                                    <td>De flux</td>
+                                    <td>Discretă</td>
+                                    <td>INSP</td>
+                                    <td>
+                                        Zilnică
+                                        (ultimele
+                                        24h)
+                                        Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>1.6</td>
+                                    <td>
+                                        Număr de teste
+                                        efectuate în baza
+                                        definiției de caz
+                                    </td>
+                                    <td>TDc</td>
+                                    <td>
+                                    </td>
+                                    <td>De flux</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        Zilnică
+                                        (ultimele
+                                        24h)
+                                        Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>1.7</td>
+                                    <td>
+                                        Număr de teste
+                                        efectuate la cerere
+                                    </td>
+                                    <td>TEc</td>
+                                    <td>
+                                    </td>
+                                    <td>De flux</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        Zilnică
+                                        (ultimele
+                                        24h)
+                                        Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>1.8</td>
+                                    <td>
+                                        Vindecați
+                                    </td>
+                                    <td>Vd</td>
+                                    <td>
+                                        Persoane care au avut un test pozitiv
+                                        pentru SARS-COV2, declarate, cazuri
+                                        pozitive la un moment dat, care au
+                                        înregistrat în final un test negativ
+                                    </td>
+                                    <td>De stoc</td>
+                                    <td>Discretă</td>
+                                    <td>INSP</td>
+                                    <td>
+                                        Până la
+                                        momentul
+                                        t/ziua de+
+                                        Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>1.9</td>
+                                    <td>
+                                        Populația rezidentă
+                                    </td>
+                                    <td>Pop</td>
+                                    <td>
+                                        Numărul de locuitori rezidenți conform
+
+                                        definiției INS
+                                    </td>
+                                    <td>De stoc</td>
+                                    <td>Discretă</td>
+                                    <td>INS</td>
+                                    <td>
+                                        Populația
+                                        medie / la 1
+                                        iulie 2020
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="8">Indicatori derivați</td>
+                                    <td>2.1</td>
+                                    <td>
+                                        Rata de
+                                        pozitivitate1
+                                    </td>
+                                    <td>
+                                        Rp1=C
+                                        N/TDc
+                                    </td>
+                                    <td>
+                                        Cazuri noi raportate la total teste
+                                        efectuate conform definiției de caz
+                                        (TDc)
+                                    </td>
+                                    <td></td>
+                                    <td>Continuă</td>
+                                    <td></td>
+                                    <td>
+                                        Zilnică+Cu
+                                        mulat în
+                                        ultimele 14
+                                        zile
+                                        calendaristic
+                                        e+ Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2.2</td>
+                                    <td>
+                                        Rata de
+                                        pozitivitate2
+                                    </td>
+                                    <td>
+                                        Rp2=C
+                                        N/(TDc
+                                        +TEc)
+                                    </td>
+                                    <td>
+                                        Cazuri noi raportate la total teste
+                                        efectuate
+                                    </td>
+                                    <td></td>
+                                    <td>Continuă</td>
+                                    <td></td>
+                                    <td>
+                                        Zilnică+Cu
+                                        mulat în
+                                        ultimele 14
+                                        zile
+                                        calendaristic
+                                        e+ Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2.3</td>
+                                    <td>
+                                        Incidența aparentă
+                                    </td>
+                                    <td>
+                                        IA=CN/
+                                        Pop
+                                    </td>
+                                    <td>
+                                        Cazuri noi /Populația rezidentă
+                                    </td>
+                                    <td></td>
+                                    <td>Continuă</td>
+                                    <td>
+                                        Calcule
+                                        proprii
+                                        conform
+                                        definiției
+                                        INSP
+                                    </td>
+                                    <td>
+                                        Cumulat în
+                                        ultimele 7/14
+                                        zile
+                                        calendaristic
+                                        e+ Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2.4</td>
+                                    <td>
+                                        Prevalența
+                                    </td>
+                                    <td>
+                                        Prev=C
+                                        A/Pop
+                                    </td>
+                                    <td>
+                                        Numărul de cazuri active existent la un
+                                        moment dat / Populația rezidentă
+                                    </td>
+                                    <td>De stoc</td>
+                                    <td>Continuă</td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        La un
+                                        moment dat,
+                                        în ziua de..+
+                                        Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2.5</td>
+                                    <td>
+                                        Rata de infectare în
+                                        populație
+                                    </td>
+                                    <td>
+                                        Rinf=T
+                                        CC/Pop
+                                    </td>
+                                    <td>
+                                        Total cazuri confirmate / Populația
+                                        rezidentă
+                                    </td>
+                                    <td>De stoc</td>
+                                    <td>Continuă</td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        La un
+                                        moment dat,
+                                        în ziua de..+
+                                        Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2.6</td>
+                                    <td>
+                                        Rata de fatalitate
+                                    </td>
+                                    <td>
+                                        Rfat=De
+                                        c/CN
+                                        Dec/TC
+                                        C
+                                    </td>
+                                    <td>
+                                        Total decese / total infectați
+                                    </td>
+                                    <td>De stoc</td>
+                                    <td>Continuă</td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        Pana la
+                                        momentul t
+                                        Cumulat pe
+                                        ultimele 7/14
+                                        zile+ Medie
+                                        mobila 7/14
+                                        zile
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2.7</td>
+                                    <td>
+                                        Rata deceselor în
+                                        cazurile critice
+                                    </td>
+                                    <td>
+                                        Dec/ATI
+                                    </td>
+                                    <td>
+                                        Media deceselor înregistrate / zi în
+                                        ultimele 7/14 zile raportat le media
+                                        numărului de cazuri existent în aceeași
+                                        perioadă în ATI
+                                    </td>
+                                    <td>De stoc</td>
+                                    <td>Continuă</td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        Medie
+                                        mobilă pe
+                                        7/14 zile
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2.8</td>
+                                    <td>
+                                        Rata cazurilor
+                                        grave în total
+                                        cazuri noi
+                                    </td>
+                                    <td>
+                                        ATI/CN
+                                    </td>
+                                    <td>
+                                        Media cazurilor existente in ATI în
+                                        ultimele 7/14 zile raportată la media
+                                        numărului de cazuri noi din ultimele
+                                        7/14 zile
+                                    </td>
+                                    <td>De stoc</td>
+                                    <td>Continuă</td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        Medie
+                                        mobilă pe
+                                        7/14 zile
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p><i>(1) Prin ultimele 7/14 zile se înțelege ultimele 7/14 zile calendaristice luând în considerare și ziua (momentul) pentru care se face raportarea.)</i></p>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
@@ -278,38 +847,48 @@
             casesByCountyFetched = false;
 
             function renderCasesCharts(data) {
-                barChart(data, {
+                lineChart(data, {
                     xField: "Data",
                     yField: "Cazuri",
                     container: "#dailyCases",
-                    color: blue
+                    color: blue,
+                    strokeWidth: 3,
+                    pointRadius: 4
                 });
-                barChart(data, {
+                lineChart(data, {
                     xField: "Data",
                     yField: "Total",
                     container: "#totalCases",
-                    color: red
+                    color: red,
+                    strokeWidth: 3,
+                    pointRadius: 4
                 });
-                barChart(data, {
+                lineChart(data, {
                     xField: "Data",
                     yField: "Cazuri active",
                     container: "#activeCases",
-                    color: orange
+                    color: orange,
+                    strokeWidth: 3,
+                    pointRadius: 4
                 });
             }
             function renderDeathsCharts(data) {
-                barChart(data, {
+                lineChart(data, {
                     xField: "Data",
                     yField: "Morti pe zi",
                     container: "#dailyDeaths",
-                    color: blue
+                    color: blue,
+                    strokeWidth: 3,
+                    pointRadius: 4
                 });
 
-                barChart(data, {
+                lineChart(data, {
                     xField: "Data",
                     yField: "Morti",
                     container: "#totalDeaths",
-                    color: red
+                    color: red,
+                    strokeWidth: 3,
+                    pointRadius: 4
                 });
 
                 stackedChart(data, {
@@ -321,23 +900,27 @@
             }
 
             function renderHealsCharts(data) {
-                barChart(data, {
+                lineChart(data, {
                     xField: "Data",
                     yField: "Vindecati pe zi",
                     container: "#dailyHeals",
-                    color: blue
+                    color: blue,
+                    strokeWidth: 3,
+                    pointRadius: 4
                 });
 
-                barChart(data, {
+                lineChart(data, {
                     xField: "Data",
                     yField: "Vindecati",
                     container: "#totalHeals",
-                    color: red
+                    color: red,
+                    strokeWidth: 3,
+                    pointRadius: 4
                 });
             }
 
-            function renderGrowthCharts(data) {                
-                
+            function renderGrowthCharts(data) {
+
                 lineChart(data, {
                     xField: "Data",
                     yField: "Rata de crestere",
@@ -353,7 +936,7 @@
                     color: red,
                     strokeWidth: 3,
                     pointRadius: 4
-                });  
+                });
                 lineChart(data, {
                     xField: "Data",
                     yField: "Cazuri noi/total",
@@ -372,8 +955,8 @@
                     color: blue,
                     strokeWidth: 3,
                     pointRadius: 4
-                });    
-                
+                });
+
                 lineChart(data, {
                     xField: "Data",
                     yField: "Nr de teste",
@@ -390,7 +973,7 @@
                     strokeWidth: 3,
                     pointRadius: 4
                 });
-                            
+
             }
 
             function renderCountyCharts(data) {
@@ -425,11 +1008,11 @@
                     container: "#totalDeathsByCounty",
                     color: teal
                 });
-                
+
             }
 
             $('.nav-tabs a').on('shown.bs.tab', function (event) {
-                var id = event.target.id;    
+                var id = event.target.id;
 
                 var items = dailyCasesResult.slice(0, size);
                 switch (id) {
@@ -454,12 +1037,14 @@
                     case 'nav-report-tab':
                         createTable(dailyCasesResult);
                         break;
+                    case 'nav-ages-tab':
+                        break;
                 }
             });
 
             function tryRender() {
                 if (dailyCasesFetched == true && casesByCountyFetched == true) {
-                 
+
                     var items = dailyCasesResult.slice(0, size);
 
                     $("#main-stats-container").show();
@@ -502,6 +1087,7 @@
                     "responsive": true,
                     "order": [[0, "desc"]]
                 });
+                
             }
 
             $.ajax({

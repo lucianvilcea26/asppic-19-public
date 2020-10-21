@@ -15,6 +15,10 @@ $(document).ready(function () {
         attribution: '&copy; ASPPIC-19'
     }).addTo(map);
 
+    //L.esri.featureLayer({
+    //    url: 'https://gissrv.asppic-19.geo-spatial.ro/spitale-provider/spitale/FeatureServer/0/query'
+    //}).addTo(map);
+
     function getMarker(categorie) {
         var color;
         switch (categorie) {

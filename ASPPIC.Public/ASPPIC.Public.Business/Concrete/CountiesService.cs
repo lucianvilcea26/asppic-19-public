@@ -20,18 +20,9 @@ namespace ASPPIC.Public.Business.Concrete
         {
             _gateway = RestClient.For<ICountyGateway>(config.Value.StatsAPIUrl);
         }
-        public async Task<DashboardDto> GetDashboardInfo()
+        public async Task<List<CasesByCountyAndPeriod>> GetDashboardInfo()
         {
-            var dto = new DashboardDto();
-            var lastDays = await _gateway.GetStatsForLastDays(2);
-            var lastDay = await _gateway.GetStatsForLastDays(1);
-            dto.LastStatistics = lastDay;
-            dto.NewCases = lastDay.SelectMany(x => x.DailyStats).Sum(x => x.NewCases);
-            dto.TotalCases = lastDay.SelectMany(x => x.DailyStats).Sum(x => x.TotalCases);
-            dto.NewDeaths = lastDay.SelectMany(x => x.DailyStats).Sum(x => x.NewDeaths);
-            dto.TotalDeaths = lastDay.SelectMany(x => x.DailyStats).Sum(x => x.TotalDeaths);
-            dto.Date = lastDay.First().DailyStats.First().Date;
-            return dto;
+            return await _gateway.GetCasesByCountyForLastDay();
         }
     }
 }
