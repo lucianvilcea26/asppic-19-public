@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Simple FeatureLayer</title>
+    <title>Vizualizare distributie spatiala cazuri COVID</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 
     <!-- Load Leaflet from CDN -->
@@ -36,6 +36,19 @@
             right: 0;
             left: 0;
         }
+
+        .legend {
+            line-height: 18px;
+            color: #555;
+        }
+
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 15px;
+            opacity: 0.7;
+        }
     </style>
 </head>
 
@@ -46,21 +59,119 @@
     <script>
         var map = L.map('map').setView([45.8, 25], 7);
 
-        L.esri.basemapLayer('Streets').addTo(map);
+        var bm_imagery = L.esri.basemapLayer('ImageryFirefly');
+        bm_imagery.addTo(map);
+        var bm_streets = L.esri.basemapLayer('Streets');
+        bm_streets.addTo(map);
+        var bm_gray = L.esri.basemapLayer('Gray');
+        bm_gray.addTo(map);
+        var bm_topographic = L.esri.basemapLayer('Topographic');
+        bm_topographic.addTo(map);
 
-        var judete_medie_zi = new L.GeoJSON.AJAX("../geojsonfiles/judete_va2.geojson").addTo(map);
-        judete_medie_zi.bindPopup(function (layer) {
-            return L.Util.template('<p>Nume judet <strong>{f2}</strong> nr de cazuri {f1}</p>', layer.feature.properties);
+        function getColor(d) {
+            if (d === null || d === undefined) {
+                d = 0;
+            }
+            return d > 150 ? '#800026' :
+                d > 125 ? '#BD0026' :
+                    d > 100 ? '#E31A1C' :
+                        d > 75 ? '#FC4E2A' :
+                            d > 50 ? '#FD8D3C' :
+                                d > 25 ? '#FEB24C' :
+                                    d > 10 ? '#FED976' :
+                                        '#FFEDA0';
+        }
+        function getIconUrl(icon) {
+            return icon === "SUPORT_COVID_DIALIZA" ? "img/marker-icon-yellow.png" :
+                icon === "SUPORT_COVID" ? "img/marker-icon-red.png" :
+                    icon === "SUPORT_COVID_MATERNITATE" ? "img/marker-icon-orange.png" :
+                        icon === "TESTARE_COVID" ? "img/marker-icon-violet.png" :
+                            "img/marker-icon-grey.png";
+        }
+        function style_asppic19(feature) {
+            return {
+                fillColor: getColor(feature.properties['last_day']),
+                weight: 2,
+                opacity: 1,
+                color: 'white',
+                dashArray: '3',
+                fillOpacity: 0.7
+            };
+        };
+        var counties_stats = new L.GeoJSON.AJAX("../geojsonfiles/judete_stats.geojson", { style: style_asppic19 });
+        counties_stats.addTo(map);
+
+        counties_stats.bindPopup(function (layer) {
+            return L.Util.template('<strong>{county}</strong><br />Nr de cazuri noi inregistrate de la data {date_ref}<ul><li>Ultima zi: {last_day}</li><li>Ultimele 7 zile: {last_week}</li><li>Ultimele 30 zile: {last_month}</li></ul>', layer.feature.properties);
+        });
+        function styleHospitals(feature, latlng) {
+            return new L.Marker(latlng, {
+                icon: L.icon({
+                    iconUrl: getIconUrl(feature.properties['Category']),
+                    shadowUrl: 'img/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                })
+            });
+        }
+        var hospitals = new L.GeoJSON.AJAX("../geojsonfiles/spitale.geojson", { pointToLayer: styleHospitals })
+        hospitals.addTo(map);
+
+        hospitals.bindPopup(function (layer) {
+            return L.Util.template('<p><strong>{HospitalName}</strong> ({Abbreviation}) - <i>{AdditionalData}</i><br />{Category}<br />{Address},{Uat},{County}<br />{Phone} - <a href=\'{Email}\'>{Email}</a><br /><a href=\'{FullLink}\'>{FullLink}</a><br /><a href=\'{GpsRoute}\'>{GpsRoute}</a></p>', layer.feature.properties);
         });
 
-        var spitale = L.esri.featureLayer({
-            url: 'https://gissrv.asppic-19.geo-spatial.ro/file-geojson/rest/services/spitale/FeatureServer/0'
-        }).addTo(map);
+        var legend = L.control({ position: 'bottomright' });
 
-        spitale.bindPopup(function (layer) {
-            return L.Util.template('<p>Nume spital <strong>{f2}</strong> nr de cazuri {f1}</p>', layer.feature.properties);
-        });
+        legend.onAdd = function (map) {
 
+            var div = L.DomUtil.create('div', 'info legend'),
+                grades = [10, 25, 50, 75, 100, 125, 150, "Suport COVID", "Suport COVID dializa", "Suport COVID maternitate", "Testare COVID", "Alta categorie"],
+                labels = [];
+
+            // loop through our density intervals and generate a label with a colored square for each interval
+            for (var i = 0; i < grades.length; i++) {
+                if (parseInt(grades[i])) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                }
+                else {
+                    if(grades[i] ==="Suport COVID")
+                            div.innerHTML += '<img src="img/marker-icon-red.png"/> ' + grades[i] + '<br>';
+                    else if(grades[i] ==="Suport COVID dializa")
+                            div.innerHTML += '<img src="img/marker-icon-yellow.png"/> ' + grades[i] + '<br>';
+                    else if(grades[i] ==="Suport COVID maternitate")
+                            div.innerHTML += '<img src="img/marker-icon-orange.png"/> ' + grades[i] + '<br>';
+                    else if(grades[i] ==="Testare COVID")
+                            div.innerHTML += '<img src="img/marker-icon-violet.png"/> ' + grades[i] + '<br>';
+                    else 
+                            div.innerHTML += '<img src="img/marker-icon-grey.png"/> ' + grades[i] + '<br>';
+                }
+            }
+
+            return div;
+        };
+
+        legend.addTo(map);
+
+        var baseMaps = {
+            "Imagini satelitare": bm_imagery,
+            "Strazi": bm_streets,
+            "Tonuri de gri": bm_gray,
+            "Topografic": bm_topographic
+        };
+
+        var overlayMaps = {
+            "Judete (nr cazuri)": counties_stats,
+            "Spitale": hospitals
+        };
+        L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+
+        map.attributionControl.addAttribution('Set de date &copy; <a href="">De adaugat</a>');
 
     </script>
 
