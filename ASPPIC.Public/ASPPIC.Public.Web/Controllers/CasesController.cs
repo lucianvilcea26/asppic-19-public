@@ -2,15 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ASPPIC.Public.Business.Interfaces;
+using ASPPIC.Public.Data.Gateways;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPPIC.Public.Web.Controllers
 {
     public class CasesController : Controller
     {
-        public IActionResult Index()
+        private readonly ICountyService _countyService;
+
+        public CasesController(ICountyService countyService)
         {
-            return View();
+            _countyService = countyService;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var result = await _countyService.GetDashboardInfo();
+            return View(result);
         }
     }
 }

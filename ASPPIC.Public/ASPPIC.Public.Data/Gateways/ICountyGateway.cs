@@ -29,5 +29,8 @@ namespace ASPPIC.Public.Data.Gateways
 
         [Post("cases/batch")]
         Task AddCasesAsBatch([Body] List<CaseDto> model);
+
+        [Get("/cases/counties/last-day")]
+        Task<List<CasesByCountyAndPeriod>> GetCasesByCountyForLastDay();
     }
 }

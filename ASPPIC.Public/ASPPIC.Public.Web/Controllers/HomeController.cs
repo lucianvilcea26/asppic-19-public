@@ -22,7 +22,7 @@ namespace ASPPIC.Public.Web.Controllers
             return View(result);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Rss()
         {
             return View();
         }        
