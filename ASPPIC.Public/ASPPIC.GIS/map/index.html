@@ -134,21 +134,28 @@
             // loop through our density intervals and generate a label with a colored square for each interval
             for (var i = 0; i < grades.length; i++) {
                 if (parseInt(grades[i])) {
-                    div.innerHTML +=
-                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                    if (grades[i] === 150)
+                    {
+                        div.innerHTML += '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +grades[i] + '+<br>';
+                    }
+                    else
+                    {
+                        div.innerHTML +=
+                            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                    }
                 }
                 else {
-                    if(grades[i] ==="Suport COVID")
-                            div.innerHTML += '<img src="img/marker-icon-red.png"/> ' + grades[i] + '<br>';
-                    else if(grades[i] ==="Suport COVID dializa")
-                            div.innerHTML += '<img src="img/marker-icon-yellow.png"/> ' + grades[i] + '<br>';
-                    else if(grades[i] ==="Suport COVID maternitate")
-                            div.innerHTML += '<img src="img/marker-icon-orange.png"/> ' + grades[i] + '<br>';
-                    else if(grades[i] ==="Testare COVID")
-                            div.innerHTML += '<img src="img/marker-icon-violet.png"/> ' + grades[i] + '<br>';
-                    else 
-                            div.innerHTML += '<img src="img/marker-icon-grey.png"/> ' + grades[i] + '<br>';
+                    if (grades[i] === "Suport COVID")
+                        div.innerHTML += '<img src="img/marker-icon-red.png"/> ' + grades[i] + '<br>';
+                    else if (grades[i] === "Suport COVID dializa")
+                        div.innerHTML += '<img src="img/marker-icon-yellow.png"/> ' + grades[i] + '<br>';
+                    else if (grades[i] === "Suport COVID maternitate")
+                        div.innerHTML += '<img src="img/marker-icon-orange.png"/> ' + grades[i] + '<br>';
+                    else if (grades[i] === "Testare COVID")
+                        div.innerHTML += '<img src="img/marker-icon-violet.png"/> ' + grades[i] + '<br>';
+                    else
+                        div.innerHTML += '<img src="img/marker-icon-grey.png"/> ' + grades[i] + '<br>';
                 }
             }
 
